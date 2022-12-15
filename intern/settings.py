@@ -14,13 +14,6 @@ from pathlib import Path
 import os
 import environ
 
-if os.path.isfile('.env'): # .envファイルが存在しない時にもエラーが発生しないようにする
-    env = environ.Env(DEBUG=(bool, False),)
-    environ.Env.read_env('.env')
-
-    DEBUG = env('DEBUG')
-    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -138,3 +131,10 @@ MEDIA_ROOT = BASE_DIR / 'media_local'
 LOGIN_URL='login'
 LOGIN_REDIRECT_URL = 'friends'
 LOGOUT_REDIRECT_URL = "/"
+
+if os.path.isfile('.env'): # .envファイルが存在しない時にもエラーが発生しないようにする
+    env = environ.Env(DEBUG=(bool, False),)
+    environ.Env.read_env('.env')
+
+    DEBUG = env('DEBUG')
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
