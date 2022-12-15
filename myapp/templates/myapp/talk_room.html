@@ -1,1 +1,51 @@
-TR
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/talk_room.css' %}" />
+    {% block extra_style %}{% endblock %}
+    <title>DeMiAインターン</title>
+</head>
+<body>
+    {% block header %}
+    <header class="header">
+        <div class="header-container">
+            <span class="header-container__title">
+                <span class="back-item"><a href="{% url 'friends' %}" class="back-button">＜</a></span>
+                <span class="username-item">{% block header-title %}{{ friends.username }}{% endblock %}</span>
+                <a href="" class="reroad-button">更新</a>
+            </span>
+        </div>
+    </header>
+    {% endblock %}
+
+    {% block content %}
+    {% for message in message_list %}
+    <div id="container">
+        <div class="name_from">>{{ message.name_from }}</div>        
+        <div class="content">{{ message.content }}</div>
+        <div class="date">
+            {{ message.create_at|date:"n/d"}}
+            <br>
+            {{ message.create_at|date:"H:i"}}
+        </div>
+    </div>
+    {% endfor %}
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-container__item">
+                <form method="post" class="form">
+                    {% csrf_token %}{{ form.content }}
+                    <button type="submit" class="button">送信</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+</html>

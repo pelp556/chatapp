@@ -1,1 +1,38 @@
-LI
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/login.css' %}">
+    <title>ユーザーフォーム</title>
+</head>
+
+
+<body>
+    {% block header %}
+    <header class="header">
+        <div class="header-container">
+            <span class="header-container__title">
+                {% block header-title %}ログイン{% endblock %}
+            </span>
+        </div>
+    </header>
+    {% endblock %}
+
+    {% block content %}
+        <div id="main">
+            <form action="", method="POST">
+            <div class = "input">
+                <div class="form">ユーザーネーム:{% csrf_token %}{{ form.username }}</div>
+                <div class="form">パスワード:{% csrf_token %}{{ form.password }}</div>
+            </div>
+            <button type="submit" class="button">ログイン</button>
+            <input type="hidden" name="next" value="{{ next }}">
+            </form>
+        </div>
+    {% endblock %}
+</body>
+
+
+</html>
